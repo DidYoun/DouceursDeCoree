@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ douceur["name"] }}{% endblock %}
+
+{% block content %}
+    <div class="container douceur-view">
+        {% include 'page/common/flash.html.twig' %}
+        <div class="row">
+            <div class="col-lg-12">
+                {% include "page/douceur/view/title.html.twig" with douceur %}
+            </div>
+            <div class="col-lg-6 preview">
+                {% include "page/douceur/view/preview.html.twig" with douceur %}
+            </div>
+            <div class="col-lg-6">
+                {% include "page/douceur/view/info.html.twig" with douceur %}
+                {% include "page/douceur/view/action.html.twig" with douceur %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

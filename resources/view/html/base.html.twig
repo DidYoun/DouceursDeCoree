@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+        <title>Douceurs de Corée | {% block title %}{% endblock %}</title>
+    {% endblock %}
+    <!-- Icon -->
+    <link rel="icon" type="image/png" href="/assets/medias/img/logo.png" />
+    <!-- Stylesheet -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/app.css" type="text/css">
+    {% block css %}{% endblock %}
+    <!-- Javascript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.js" type="text/javascript"></script>
+    <script src="/assets/js/file.js" type="text/javascript"></script>
+    <script src="/assets/js/app.js" type="text/javascript"></script>
+    {% block js %}{% endblock %}
+</head>
+<body>
+{% include 'header.html.twig' %}
+{% block content %}{% endblock %}
+{% block javascript %}{% endblock %}
+{% include 'footer.html.twig' %}
+</body>
+</html>

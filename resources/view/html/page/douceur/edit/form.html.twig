@@ -1,0 +1,28 @@
+<div class="form-douceur">
+    <form action="/douceur/edit/{{ douceur["douceur_id"] }}" method="POST" enctype="multipart/form-data" id="douceur-form-edit">
+        <input type="hidden" name="_method" value="PUT">
+        <div class="form-group">
+            <label for="name">Nom :</label>
+            <input type="text" pattern="^[a-zA-Z]{3,}$" class="form-control" name="name" value="{{ douceur["name"] }}">
+        </div>
+        <div class="form-group">
+            <label for="lastname">Prénom :</label>
+            <input type="text" pattern="^[a-zA-Z]{3,}$" class="form-control" name="lastname" value="{{ douceur["lastname"] }}">
+        </div>
+        <div class="form-group">
+            <label for="age">Age :</label>
+            <input type="text" pattern="^[0-9]*" class="form-control" name="age" value="{{ douceur["age"] }}">
+        </div>
+        <div class="form-group">
+            <label for="description">Description :</label>
+            <textarea name="description" id="" cols="30" class="form-control" rows="10">{{ douceur["description"] }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="file">Image :</label>
+            <input type="file" name="file" class="filestyle" data-icon="false">
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Modifier ma douceur !" class="btn btn-primary" id="btn-submit">
+        </div>
+    </form>
+</div>

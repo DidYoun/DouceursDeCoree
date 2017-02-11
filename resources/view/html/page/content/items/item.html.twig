@@ -1,0 +1,19 @@
+<a href="/douceur/{{ douceur["douceur_id"] }}" id="douceur_{{ douceur["douceur_id"] }}" class="douceur-item">
+    <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+        <div class="flipper">
+            <div class="front">
+                <img src="{{ douceur["thumbnail"] }}" alt="">
+            </div>
+            <div class="back">
+                <div class="card">
+                    <span class="douceur-name">{{ douceur["name"] }}</span>
+                    <span class="douceur-lastname">{{ douceur["lastname"] }}</span>
+                    <span class="douceur-lastname">{{ douceur["age"] }}</span>
+                    <div class="description">
+                        <p>{{ douceur["description"] }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>

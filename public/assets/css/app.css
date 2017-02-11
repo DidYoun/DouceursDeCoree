@@ -1,0 +1,269 @@
+body {
+	font-family: "Roboto";
+}
+
+.row-douceur > div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #FFF url('../medias/img/line-sep-1x390.png') no-repeat right top;
+	margin: 20px 0;
+	padding: 0 10px;
+	text-align: center;
+	background-size: 1px 100%;
+}
+
+.cycle {
+	background-image: url('../medias/img/wallhaven-278198.jpg');
+	background-size: cover;
+	background-position-x: -400px;
+	height: 415px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.cycle div {
+	text-align: center;
+}
+
+.cycle div h1 {
+	font-size: 48px;
+	font-weight: bold;
+	color : white;
+}
+
+.cycle div a img{
+	width: 150px;
+	height: auto;
+}
+
+.cycle > * {
+	display: block;
+}
+
+.box {
+	width: 512px;
+	margin: 0 auto;
+	font-family: arial, sans-serif;
+}
+
+.home-action {
+	margin-top: 30px;
+	text-align: center;
+}
+
+
+.home-action a {
+	width: 50%;
+}
+
+
+.social:hover {
+	-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-o-transform: scale(1.1);
+}
+.social {
+	-webkit-transform: scale(0.8);
+	/* Browser Variations: */
+	
+	-moz-transform: scale(0.8);
+	-o-transform: scale(0.8);
+	-webkit-transition-duration: 0.5s;
+	-moz-transition-duration: 0.5s;
+	-o-transition-duration: 0.5s;
+}
+
+/*
+    Multicoloured Hover Variations
+*/
+
+#social-fb:hover {
+	color: #3B5998;
+}
+#social-tw:hover {
+	color: #4099FF;
+}
+#social-gp:hover {
+	color: #d34836;
+}
+#social-em:hover {
+	color: #f39c12;
+}
+
+/* entire container, keeps perspective */
+.flip-container {
+	perspective: 500px;
+	margin: 0 auto;
+}
+/* flip the pane when hovered */
+.flip-container:hover .flipper, .flip-container.hover .flipper {
+	transform: rotateY(180deg);
+}
+
+.flip-container, .front, .back {
+	width: 160px;
+	height: 240px;
+	margin: 0 auto;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+	
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.txt-railway {
+	font-weight: bold;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+}
+
+.front img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(180deg);
+}
+
+.back .card {
+	width: 100%; height: 100%;
+	display: flex;
+	flex-flow: row wrap;
+	align-content: center;
+	justify-content: center;
+	text-align: center;
+	color: black;
+	
+}
+
+.back .card span {
+	display: inline-block;
+	width: 100%;
+}
+
+.back .card span.douceur-name {
+	font-weight: bold;
+	font-size: 22px;
+	margin: 10px 0;
+}
+
+.back .card .description {
+	height: 50%;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.form-douceur {
+	margin: 10px 0;
+}
+
+.douceur-view .info {
+	font-size: 18px;
+}
+
+.douceur-view .strong {
+	display: inline-block;
+	width: 150px;
+	margin: 1px 0;
+	font-weight: bold;
+}
+
+.douceur-view .strong-description {
+	display: inline-block;
+	width: 150px;
+	margin: 1px 0;
+	font-weight: bold;
+}
+
+.douceur-view h1 {
+	margin: 0;
+	text-align: center;
+	font-weight: bold;
+	padding: 40px 0;
+}
+
+.douceur-view .preview img {
+	display: block;
+	width: 100%;
+	height: auto;
+	margin: 0 auto;
+}
+.douceur-view .info {
+	margin: 10px 0;
+}
+
+
+.douceur-view .douceur-name {
+
+}
+
+.douceur-view .douceur-lastname {
+
+}
+
+.douceur-view .douceur-description {
+	margin: 10px 0 10px 0;
+	padding: 15px;
+	border: 1px solid #f7f7f7;
+	background-color : #f7f7f7;
+}
+
+.douceur-view a {
+	width: 49%;
+}
+.douceur-edit .preview img {
+	display: block;
+	width: 100%;
+	height: auto;
+	margin: 0 auto;
+}
+
+.douceur-edit, .douceur-create {
+	margin-top: 30px;
+}
+
+.douceur-edit #btn-submit{
+	text-align: center;
+}
+
+.douceur-create {
+}
+
+.empty-collection {
+	display: block;
+	margin: 30px 0;
+	font-size: 48px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.alert {
+	margin-top: 15px;
+}
+
+.full-width{
+	width: 100%;
+}

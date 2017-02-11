@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <div class="container douceur-create">
+        {% include 'page/common/flash.html.twig' %}
+        <div class="row">
+            <div class="col-lg-6">
+                {% include "page/douceur/create/form.html.twig" %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

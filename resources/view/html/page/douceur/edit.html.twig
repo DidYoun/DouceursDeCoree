@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <div class="container douceur-edit">
+        <div class="row">
+            <div class="col-lg-12">
+                {% include "page/douceur/edit/title.html.twig" with douceur %}
+            </div>
+            <div class="col-lg-6 preview">
+                {% include "page/douceur/edit/preview.html.twig" with douceur %}
+            </div>
+            <div class="col-lg-6">
+                {% include "page/douceur/edit/form.html.twig" with douceur %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

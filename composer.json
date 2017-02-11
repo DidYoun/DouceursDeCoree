@@ -1,0 +1,19 @@
+{
+    "name": "did/selenium",
+    "description": "PHPUnit et Selenium - Integration continue",
+    "type": "project",
+    "require": {
+        "slim/slim": "^3.0",
+        "slim/twig-view": "^2.1",
+        "phpunit/phpunit": "^5.7",
+        "phpunit/phpunit-selenium": "^3.0",
+        "slim/flash": "^0.2.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Did Youn",
+            "email": "didier.youn@gmail.com"
+        }
+    ]
+}

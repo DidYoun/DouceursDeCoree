@@ -1,0 +1,43 @@
+{% block title %} Band {% endblock %} {% extends "base.html.twig" %} {% block content %}
+<div class="content container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="jumbotron">
+                <div class="container">
+                    <h2>Créer des groupes de douceurs</h2>
+                </div>
+                <div class="row">
+                    {% for douceur in douceurs %}
+                    <div class="col-xs-6 col-md-3">
+                        <div class="thumbnail">
+                            <img src="/assets/medias/img/jei.jpg" alt="...">
+                            <div class="caption">
+                                <h3>{{ douceur['name'] }} {{ douceur['firstname']}}</h3>
+                                <p><a class="btn btn-primary select" role="button" data-id="{{ douceur['douceur_id'] }}">Select</a>                                    <a class="btn btn-default unselect" role="button" data-id="{{ douceur['douceur_id'] }}">Unselect</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Name of the group</span>
+                    <input type="text" class="form-control" placeholder="Fiestar" aria-describedby="basic-addon1" id="name">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Date of creation</span>
+                    <input type="date" class="form-control" placeholder="Username" aria-describedby="basic-addon1" id="date">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3">Agency</span>
+                    <input type="text" class="form-control" placeholder="SM Entertainment" id="basic-url" aria-describedby="basic-addon3" id="agency">
+                </div>
+                <button type="button" class="btn btn-default full-width" id="create-group" style="margin-top: 20px;">Create group</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block javascript %}
+<script src="/assets/js/helper.js"></script>
+<script src="/assets/js/request.js"></script>
+<script src="/assets/js/band.js"></script>
+{% endblock %}

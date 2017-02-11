@@ -1,0 +1,14 @@
+{% block title %} Home{% endblock %}
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <div class="content container">
+        {% include 'page/common/flash.html.twig' %}
+        {% if douceurs %}
+            {% include "page/content/grid.html.twig" with douceurs %}
+        {% else %}
+            <span class="empty-collection">Pas de douceurs encore ajoutées !</span>
+        {% endif %}
+        {% include "page/content/action.html.twig" %}
+    </div>
+{% endblock %}

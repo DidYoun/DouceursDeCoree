@@ -1,0 +1,5 @@
+{% if flash.getMessage('flash') %}
+    <div class="alert alert-{{ flash.getMessage('flash')[0][0] }}">
+        {{ flash.getMessage('flash')[0][1]}}
+    </div>
+{% endif %}
