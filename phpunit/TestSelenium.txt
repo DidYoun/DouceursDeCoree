@@ -162,7 +162,7 @@ class TestSelenium extends DriverHelper
         $this->byId('btn-delete')->click();
         /** Check if we're redirect on homepage */
         $this->assertEquals($this->getBrowserUrl(), $this->url());
-        /** Check if items have been decrement by one */
+        /** Check if items have been decrement by one lol */
         $this->assertEquals($this->countDouceursItems(), $currentDouceurItems - 1);
     }
 }
