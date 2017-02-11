@@ -29,7 +29,7 @@ class TestSelenium extends DriverHelper
     public function test404()
     {
         $this->url('/coucou');
-        $this->assertEquals(self::DEFAULT_TITLE_NOT_FOUND, $this->title());
+        $this->assertEquals("LOL", $this->title());
     }
 
     /**
