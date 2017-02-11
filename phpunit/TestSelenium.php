@@ -40,4 +40,25 @@ class TestSelenium extends DriverHelper
         $this->url('/');
         $this->assertEquals(self::DEFAULT_PATTERN_TITLE . 'Home', $this->title());
     }
+
+    /**
+     * User story n°2 : Sébastien visite une douceur de Corée.
+     * Road map :
+     * --> Render homepage
+     * --> Simulate click on item identifier #7
+     * --> Check if the url of the browser as the identifier.
+     */
+    public function testSebastienVisitUneDouceurDeCoree()
+    {
+        $this->url('/');
+        $sweetId = $this->getRandomIdentifierFromSweetItems();
+        if (!$sweetId) {
+            $this->assertFalse($sweetId);
+        } else {
+            /** Render view sweet page */
+            $this->byId('douceur_' . $sweetId)->click();
+            /** Check if we are redirect to sweet page view */
+            $this->assertEquals($this->getBrowserUrl() . 'douceur/' . $sweetId, $this->url());
+        }
+    }
 }
