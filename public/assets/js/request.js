@@ -21,10 +21,10 @@ class RequestBackend{
      *  @return {this} Object 
      */
     prepare(){
-        console.log(this.type);
         const headers = new Headers();
         // Precise that we want a JSON back to the front
         if (this.type === 'json'){
+            console.log('json bitches');
             headers.append('Content-type', 'application/json');
         }
         
@@ -37,11 +37,14 @@ class RequestBackend{
         }
 
         // Check if there're param in our request constructor ...
-        if (this.params != null && this.type === 'json')
+        if ((this.method === 'POST' || this.method === 'PUT') && this.type === 'json'){
             config.body = JSON.stringify(this.params);
-        else if(this.params != null)
+        }
+        else {
             config.body = this.params;
-
+        }
+            
+        console.log('http://www.douceurs-coree.dev' + this.req);
         // Prepare the request
         this.makeRequest = new Request('http://www.douceurs-coree.dev' + this.req, config);
 

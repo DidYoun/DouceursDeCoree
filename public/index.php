@@ -59,7 +59,14 @@ $app->get('/', function (Request $request, Response $response) {
     $douceurHelper = new \Helpers\DouceurHelper();
     $douceurs = $douceurHelper->getDouceurs();
 
-    return $this->view->render($response, 'page/index.html.twig', ["douceurs" => $douceurs]);
+    // band
+    $bandHelper = new \Helpers\BandsHelper();
+    $bands = $bandHelper->getAllBands();
+
+    return $this->view->render($response, 'page/index.html.twig', [
+        "douceurs" => $douceurs,
+        "bands" => $bands
+    ]);
 })->setName('root');
 
 /**
@@ -158,23 +165,90 @@ $app->get('/douceur/delete/{id}', function (Request $request, Response $response
     return $response->withRedirect($rootPath);
 });
 
-$app->get('/band', function(Request $request, Response $response, $args){
+/**
+ * Resource [Band]
+ *
+ * @url [GET]       /band/ : view band
+ * @url [GET]       /band/new : create view band
+ * @url [POST]      /band/new : create a new band
+ * @url [PUT]       /band/{id}/update : update band
+ * @url [DELETE]    /band/{id}/delete : delete band
+ */
+$app->get('/band', function(Request $request, Response $response, $args) use ($app) {
+    $bandHelper = new \Helpers\BandsHelper();
+    return $this->view->render($response, 'page/band/band.html.twig', [
+        'band' => $bandHelper
+    ]);
+})->setName('bandView');
+
+$app->get('/band/new', function(Request $request, Response $response, $args) use ($app) {
     $bandHelper = new \Helpers\BandsHelper();
 
     $douceurHelper = new \Helpers\DouceurHelper();
     $douceurs = $douceurHelper->getDouceurs();
-    return $this->view->render($response, 'page/band.html.twig', [
+    return $this->view->render($response, 'page/band/band_create.html.twig', [
         'band' => $bandHelper,
         'douceurs' => $douceurs
     ]);
 });
 
-$app->post('/band/new', function(Request $request, Response $response, $args){
+$app->post('/band/new', function(Request $request, Response $response, $args) use ($app) {
     $bandHelper = new \Helpers\BandsHelper();
-    $bandHelper->createBand($request);
+    $res = $bandHelper->createBand($request);
+
+    if (is_bool($res) && $res)
+        // we can't use the 'php redirect' as the response is based on fetch / ajax response..
+        return $response->withJson(array('url' => '/band'));
+    else
+        return $response->withJson(array(
+            'error' => $res
+        ));
 });
 
-/**
- * Init
- */
+$app->delete('/band/{id}', function(Request $request, Response $response, $args) use ($app){
+    $bandHelper = new \Helpers\BandsHelper();
+    $res = $bandHelper->removeBand($args['id']);
+
+    if($res)
+        return $response->withJson(array('url' => '/band'));
+    else
+        return $response->withJson(array('error' => $res));
+
+});
+
+$app->get('/band/{name}', function(Request $request, Response $response, $args){
+    $bandHelper = new \Helpers\BandsHelper();
+    $data = $bandHelper->getBands($args['name']);
+    $douceurHelper = new \Helpers\DouceurHelper();
+    $douceurs = $douceurHelper->getDouceurs();
+
+    return $this->view->render($response, 'page/band/band_edit.html.twig', [
+        'controller' => $bandHelper,
+        'band' => $data[0],
+        'douceurs' => $douceurs
+    ]);
+});
+
+$app->post('/band/removeAll', function(Request $request, Response $response, $args){
+    $bandHelper = new \Helpers\BandsHelper();
+    $res = $bandHelper->removeAllDouceur($request);
+
+    if($res)
+        return $response->withJson(array('status' => 'success'));
+    else
+        return $response->withJson(array('error' => $res));
+});
+
+$app->post('/band/update', function(Request $request, Response $response, $args){
+    $bandHelper = new \Helpers\BandsHelper();
+    $res = $bandHelper->update($request);
+    //$bandPath = $app->getContainer()->get('router')->pathFor('bandView');
+
+    if($res)
+        return $response->withJson(array('url' => '/band'));
+    else
+        return $response->withJson(array('error' => $res));
+});
+
+
 $app->run();
