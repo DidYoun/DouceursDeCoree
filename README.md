@@ -1,5 +1,5 @@
 # PHPUnit / Selenium
-[![Build Status](https://820be4b4.ngrok.io/buildStatus/icon?job=DouceursCoree)](https://820be4b4.ngrok.io/job/DouceursCoree/)
+[![Build Status](http://d7767b8b.ngrok.io/buildStatus/icon?job=SeleniumDouceursCoree)](http://d7767b8b.ngrok.io/job/SeleniumDouceursCoree/)
 
 **Introduction**
 > Les tests ont été implémenté en PHP. Les librairies choisies sont : <br :>
