@@ -1,0 +1,85 @@
+{% block title %} Band {% endblock %} {% extends "base.html.twig" %} {% block content %}
+<div class="content container" id="container" page-id="band-edit" band-id="{{ band['id'] }}">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="jumbotron">
+                <div class="container">
+                    <h2>Modifier un groupe de douceur</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Name</span>
+            <input type="text" class="form-control" placeholder="{{ band['name'] }}" param="name" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Agency</span>
+            <input type="text" class="form-control" placeholder="{{ band.agency }}" param="agency" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Date of creation</span>
+            <input type="date" class="form-control" value="{{ controller.getDate(band.date_creation) }}" param="date_creation" id="date" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Description</span>
+            <input type="text" class="form-control" placeholder="{{ band.description }}" param="description" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group flex">
+            <div class="current-photo">
+                <span class="input-group-addon" id="basic-addon1">Current cover image</span>
+                <img src="{{ band.cover }}"></img>
+            </div>
+            <div class="new-photo">
+                <span class="input-group-addon" id="basic-addon1">New cover image</span>
+                <img src="/assets/medias/img/none.png" id="updateImg"></img>
+                <div>
+                    <input type="file" param="file" id="file" class="form-control">
+                    <div class="sim-input btn-info">
+                        <p>Change the cover image</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 space">
+            <div class="jumbotron">
+                <div class="container">
+                    <h2>Les douceurs dans ce groupe</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="band-row">
+        {% for douceur in controller.getArtistFromBands(band.id) %}
+            <a href="/douceur/{{ douceur["douceur_id"] }}">
+                <div class="col-lg-3 col-sm-4 col-md-4 col-xs-4 douceur-rm" id="douceur_{{ douceur["douceur_id"] }}" data-name="{{ douceur.name }}">
+                    <div class="thumbnail">
+                        <img src="{{ douceur.thumbnail }}">
+                        <div class="caption">
+                            <h3>{{ douceur.name }}</h3>
+                            <p>
+                                <a class="btn btn-info delete" role="button" data-id="{{douceur["douceur_id"]}}">Supprimer</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+        <i class="fa fa-plus-circle" aria-hidden="true" id="add"></i>
+      </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-xs-12">
+        <div class="btn-group full-width" role="group" aria-label="...">
+            <button type="button" class="btn btn-default alert-info full-width" id="update">Update</button>
+            <button type="button" data-id="{{ band.id }} " class="btn btn-default alert-danger full-width" id="removeGroup">Delete</button>
+        </div>
+    </div>
+    <!-- Bootstrap modal -->
+    {% include "page/band/modal.html.twig" with douceurs %}
+</div>
+{% endblock %} 
+{% block javascript %}
+<script src="/assets/js/helper.js"></script>
+<script src="/assets/js/request.js"></script>
+<script src="/assets/js/band.js"></script>
+{% endblock %}
