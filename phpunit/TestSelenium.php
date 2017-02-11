@@ -14,7 +14,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'DriverHelper.php';
 class TestSelenium extends DriverHelper
 {
     /**
-     * Launch this method before each method test
+     * Launch this method before each method test ok ?
      */
     protected function setUp()
     {
