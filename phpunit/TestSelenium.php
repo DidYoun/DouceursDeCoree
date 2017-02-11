@@ -14,6 +14,11 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'DriverHelper.php';
 class TestSelenium extends DriverHelper
 {
     /**
+     * @var string PICTURE_TEST_UBUNTU_PATH
+     */
+    const PICTURE_TEST_UBUNTU_PATH = "/media/douceurscoree/hotesse.jpg";
+
+    /**
      * Launch this method before each method test ok ?
      */
     protected function setUp()
@@ -82,7 +87,7 @@ class TestSelenium extends DriverHelper
         $this->byName('lastname')->value("Jei");
         $this->byName('age')->value("27");
         $this->byName('description')->value("La plus belle");
-        //$this->byName('file')->value('va:\Images\Jei\jei.jpg');
+        $this->byName('file')->value(self::PICTURE_TEST_UBUNTU_PATH);
         $this->byId('douceur-form-create')->submit();
         /** Check if homepage got current items + 1 */
         $this->assertEquals($this->countDouceursItems(), $currentDouceurItems + 1);
