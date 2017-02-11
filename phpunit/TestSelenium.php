@@ -61,4 +61,30 @@ class TestSelenium extends DriverHelper
             $this->assertEquals($this->getBrowserUrl() . 'douceur/' . $sweetId, $this->url());
         }
     }
+
+    /**
+     * User story n°3 : Sébastien crée une nouvelle douceur de Corée.
+     * Road map :
+     * --> Get the current items in homepage
+     * --> Render page create
+     * --> Inject data in form and submit
+     * --> Return to homepage
+     * --> Check if nb items = current items + 1
+     */
+    public function testSebastienCreateNewDouceurDeCoree()
+    {
+        /** Get current items in homepage */
+        $currentDouceurItems = $this->countDouceursItems();
+        /** Render view page create */
+        $this->assertEquals($this->renderDouceurCreateView(), true);
+        /** Inject data in form and submit */
+        $this->byName('name')->value("Kim");
+        $this->byName('lastname')->value("Jei");
+        $this->byName('age')->value("27");
+        $this->byName('description')->value("La plus belle");
+        //$this->byName('file')->value('va:\Images\Jei\jei.jpg');
+        $this->byId('douceur-form-create')->submit();
+        /** Check if homepage got current items + 1 */
+        $this->assertEquals($this->countDouceursItems(), $currentDouceurItems + 1);
+    }
 }
