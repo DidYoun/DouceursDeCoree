@@ -73,6 +73,7 @@ class DouceurTest extends Douceur
     /**
      * User story n°4 : Sébastien met à jour une douceur de Corée.
      * Road map :
+     * --> Render homepage
      */
     public function testSebastienEditOneDouceurDeCoree()
     {
