@@ -15,7 +15,8 @@ require_once 'Band.php';
 require_once 'Flash.php';
 
 class AppPageObject extends PHPUnit_Extensions_Selenium2TestCase
-{    /** @var string ROOT_URL*/
+{
+    /** @var string ROOT_URL*/
     const ROOT_URL = "/";
     /** @var string DEFAULT_PATTERN_TITLE */
     const DEFAULT_PATTERN_TITLE = "Douceurs de Corée | ";

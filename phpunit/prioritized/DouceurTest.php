@@ -14,34 +14,21 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'AppPa
 class DouceurTest extends AppPageObject
 {
     /**
-     * User story n°1 : Sébastien visite une douceur de Corée.
-     * Road map :
-     * --> Render homepage
-     * --> Simulate click on item random identifier
-     * --> Check if the url of the browser as the identifier.
+     * @covers \Douceur::view()
      */
     public function testSebastienVisitUneDouceurDeCoree()
     {
         $this->url($this->getRootUrl());
-        $sweetId = $this->douceur->getRandomIdentifierFromSweetItems();
-        if (!$sweetId) {
-            $this->assertFalse($sweetId);
-        } else {
-            /** Render view sweet page */
-            $this->byId('douceur_' . $sweetId)->click();
-            /** Check if we are redirect to sweet page view */
-            $this->assertEquals($this->getBrowserUrl() . Douceur::PATH_DOUCEUR_VIEW . $sweetId, $this->url());
-        }
+        $sweetId = $this->douceur->view();
+        $this->assertNotFalse($sweetId);
+        $this->assertEquals($this->getBrowserUrl() . Douceur::PATH_DOUCEUR_VIEW . $sweetId, $this->url());
     }
 
     /**
      * User story n°3 : Sébastien crée une nouvelle douceur de Corée.
-     * Road map :
-     * --> Get the current items in homepage
-     * --> Render page create
-     * --> Inject data in form and submit
-     * --> Return to homepage
-     * --> Check if nb items = current items + 1
+     * @covers \Douceur::countDouceursItems()
+     * @covers \Douceur::createViewAction()
+     * @covers \Douceur::createAction()
      */
     public function testSebastienCreateNewDouceurDeCoree()
     {
@@ -57,6 +44,8 @@ class DouceurTest extends AppPageObject
 
     /**
      * User story n°3-1 : Sébastien crée une nouvelle douceur de Corée avec de mauvaises données
+     * @covers \Douceur::createViewAction()
+     * @covers \Douceur::createActionFail()
      */
     public function testSebastienCreateNewDouceurDeCoreeWithWrongFieldValue()
     {
@@ -72,8 +61,10 @@ class DouceurTest extends AppPageObject
 
     /**
      * User story n°4 : Sébastien met à jour une douceur de Corée.
-     * Road map :
-     * --> Render homepage
+     * @covers \Douceur::view()
+     * @covers \Douceur::editViewAction()
+     * @covers \Douceur::editAction()
+     * @covers \AppPageObject::resetInputValues()
      */
     public function testSebastienEditOneDouceurDeCoree()
     {
@@ -97,14 +88,9 @@ class DouceurTest extends AppPageObject
 
     /**
      * User story n°5 : Sébastien supprime une douceur de Corée.
-     * Road map :
-     * --> Render homepage
-     * --> Save the current items
-     * --> Click on douceur identifier
-     * --> Render douceur view
-     * --> Click on button delete
-     * --> Render homepage
-     * --> Check if nb items = last current items - 1
+     * @covers \Douceur::countDouceursItems()
+     * @covers \Douceur::view()
+     * @covers \Douceur::deleteAction()
      */
     public function testSebastienDeleteOneDouceurDeCoree()
     {

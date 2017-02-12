@@ -147,6 +147,29 @@ class Douceur
     }
 
     /**
+     * Create new douceur without picture
+     *
+     * @return bool
+     * @throws PHPUnit_Extensions_Selenium2TestCase_Exception
+     */
+    public function createActionNoMedia()
+    {
+        try {
+            /** Inject data in form and submit */
+            $this->selenium->byName('name')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['name']);
+            $this->selenium->byName('lastname')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['lastname']);
+            $this->selenium->byName('age')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['age']);
+            $this->selenium->byName('description')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['description']);
+            $this->selenium->byName('file')->value(null);
+            $this->selenium->byId('douceur-form-create')->submit();
+        } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
+            echo 'Trigger POST on form failed';
+        }
+
+        return true;
+    }
+
+    /**
      * Render view edit
      *
      * @return bool
