@@ -10,17 +10,23 @@
  * @link                https://github.com/DidYoun/DouceursDeCoree/
  */
 require_once __DIR__ . DIRECTORY_SEPARATOR .'..' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+require_once 'Douceur.php';
+require_once 'Band.php';
+require_once 'Flash.php';
 
-class App extends PHPUnit_Extensions_Selenium2TestCase
-{
-    /** @var string ROOT_URL*/
+class AppPageObject extends PHPUnit_Extensions_Selenium2TestCase
+{    /** @var string ROOT_URL*/
     const ROOT_URL = "/";
     /** @var string DEFAULT_PATTERN_TITLE */
     const DEFAULT_PATTERN_TITLE = "Douceurs de Corée | ";
     /** @var string DEFAULT_TITLE_NOT_FOUND */
     const DEFAULT_TITLE_NOT_FOUND = "Page Not Found";
-    /** @var  array $config */
-    protected $config;
+    /** @var Douceur $douceur */
+    protected $douceur;
+    /** @var Band $band */
+    protected $band;
+    /** @var Flash $flash */
+    protected $flash;
 
     /**
      * Launch this method before each method test
@@ -30,8 +36,14 @@ class App extends PHPUnit_Extensions_Selenium2TestCase
         $this->setHost('www.douceurs-coree.dev');
         $this->setBrowserUrl('http://www.douceurs-coree.dev/');
         $this->setBrowser('chrome');
-        if (empty($this->config)) {
-            $this->config = $this->getSeleniumConfig();
+        if (!isset($this->douceur)) {
+            $this->douceur = new Douceur($this);
+        }
+        if (!isset($this->band)) {
+            $this->band = new Band($this);
+        }
+        if (!isset($this->flash)) {
+            $this->flash = new Flash($this);
         }
     }
 
@@ -40,9 +52,19 @@ class App extends PHPUnit_Extensions_Selenium2TestCase
      *
      * @return string
      */
-    protected function getRootUrl()
+    public static function getRootUrl()
     {
         return self::ROOT_URL;
+    }
+
+    /**
+     * Get selenium configuration
+     *
+     * @return array
+     */
+    public static function getSeleniumConfig()
+    {
+        return require(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'selenium.php');
     }
 
     /**
@@ -51,7 +73,7 @@ class App extends PHPUnit_Extensions_Selenium2TestCase
      * @param array|null $attributes
      * @return bool
      */
-    protected function resetInputValues(array $attributes = null)
+    public function resetInputValues(array $attributes = null)
     {
         /** @var string $attribute */
         foreach ($attributes as $attribute) {
@@ -62,16 +84,7 @@ class App extends PHPUnit_Extensions_Selenium2TestCase
             }
             $element->clear();
         }
-        return true;
-    }
 
-    /**
-     * Get selenium configuration
-     *
-     * @return array
-     */
-    private function getSeleniumConfig()
-    {
-        return require(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'selenium.php');
+        return true;
     }
 }

@@ -9,8 +9,24 @@
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link                https://github.com/DidYoun/DouceursDeCoree/
  */
-require_once 'App.php';
 
-class Flash extends App
+class Flash
 {
+    /** @var array $config */
+    public $config;
+    /** @var PHPUnit_Extensions_Selenium2TestCase $selenium */
+    protected $selenium;
+
+    /**
+     * Flash constructor.
+     *
+     * @param PHPUnit_Extensions_Selenium2TestCase $selenium
+     */
+    public function __construct($selenium)
+    {
+        $this->selenium = $selenium;
+        $this->config = AppPageObject::getSeleniumConfig();
+    }
+
+
 }
