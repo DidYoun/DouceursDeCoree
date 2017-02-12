@@ -72,6 +72,6 @@ class App extends PHPUnit_Extensions_Selenium2TestCase
      */
     private function getSeleniumConfig()
     {
-        return require ('..' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'selenium.php');
+        return require_once('../config/selenium.php');
     }
 }
