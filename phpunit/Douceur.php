@@ -9,10 +9,12 @@
  * @license             http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link                https://github.com/DidYoun/DouceursDeCoree/
  */
-require_once 'App.php';
-
-class Douceur extends App
+class Douceur
 {
+    /** @var array $config */
+    public $config;
+    /** @var PHPUnit_Extensions_Selenium2TestCase $selenium */
+    protected $selenium;
     /**
      * @var string SELENIUM_KEY_VALID_FORM_CREATE
      */
@@ -43,6 +45,17 @@ class Douceur extends App
     const PATH_DOUCEUR_DELETE = "douceur/delete/";
 
     /**
+     * Douceur constructor.
+     *
+     * @param PHPUnit_Extensions_Selenium2TestCase $selenium
+     */
+    public function __construct($selenium)
+    {
+        $this->selenium = $selenium;
+        $this->config = AppPageObject::getSeleniumConfig();
+    }
+
+    /**
      * Render douceur view
      *
      * @return int
@@ -50,12 +63,14 @@ class Douceur extends App
      */
     public function view()
     {
+        /** @var null $sweetId */
+        $sweetId = null;
         try {
-            $this->url($this->getRootUrl());
+            $this->selenium->url(AppPageObject::getRootUrl());
             /** @var int $sweetId */
             $sweetId = $this->getRandomIdentifierFromSweetItems();
             /** Render view page of sweet */
-            $this->byId('douceur_' . $sweetId)->click();
+            $this->selenium->byId('douceur_' . $sweetId)->click();
         } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
             echo('Unavailable douceur view');
         }
@@ -72,10 +87,10 @@ class Douceur extends App
     public function createViewAction()
     {
         try {
-            $this->url($this->getRootUrl());
-            $btnCreateNewSweet = $this->byId('btn-create');
+            $this->selenium->url(AppPageObject::getRootUrl());
+            $btnCreateNewSweet = $this->selenium->byId('btn-create');
             $btnCreateNewSweet->click();
-            if ($this->getBrowserUrl() . self::PATH_DOUCEUR_CREATE == $this->url()) {
+            if ($this->selenium->getBrowserUrl() . self::PATH_DOUCEUR_CREATE == $this->selenium->url()) {
                 return true;
             }
         } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
@@ -95,12 +110,12 @@ class Douceur extends App
     {
         try {
             /** Inject data in form and submit */
-            $this->byName('name')->value($this->config[self::SELENIUM_KEY_VALID_FORM_CREATE]['name']);
-            $this->byName('lastname')->value($this->config[self::SELENIUM_KEY_VALID_FORM_CREATE]['lastname']);
-            $this->byName('age')->value($this->config[self::SELENIUM_KEY_VALID_FORM_CREATE]['age']);
-            $this->byName('description')->value($this->config[self::SELENIUM_KEY_VALID_FORM_CREATE]['description']);
-            $this->byName('file')->value($this->config[self::SELENIUM_KEY_VALID_FORM_CREATE]['media_path']);
-            $this->byId('douceur-form-create')->submit();
+            $this->selenium->byName('name')->value($this->config[self::SELENIUM_KEY_VALID_FORM_CREATE]['name']);
+            $this->selenium->byName('lastname')->value($this->config[self::SELENIUM_KEY_VALID_FORM_CREATE]['lastname']);
+            $this->selenium->byName('age')->value($this->config[self::SELENIUM_KEY_VALID_FORM_CREATE]['age']);
+            $this->selenium->byName('description')->value($this->config[self::SELENIUM_KEY_VALID_FORM_CREATE]['description']);
+            $this->selenium->byName('file')->value($this->config[self::SELENIUM_KEY_VALID_FORM_CREATE]['media_path']);
+            $this->selenium->byId('douceur-form-create')->submit();
         } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
             echo ('Trigger POST on form failed');
         }
@@ -118,12 +133,12 @@ class Douceur extends App
     {
         try {
             /** Inject data in form and submit */
-            $this->byName('name')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['name']);
-            $this->byName('lastname')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['lastname']);
-            $this->byName('age')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['age']);
-            $this->byName('description')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['description']);
-            $this->byName('file')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['media_path']);
-            $this->byId('douceur-form-create')->submit();
+            $this->selenium->byName('name')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['name']);
+            $this->selenium->byName('lastname')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['lastname']);
+            $this->selenium->byName('age')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['age']);
+            $this->selenium->byName('description')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['description']);
+            $this->selenium->byName('file')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['media_path']);
+            $this->selenium->byId('douceur-form-create')->submit();
         } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
             echo 'Trigger POST on form failed';
         }
@@ -140,7 +155,7 @@ class Douceur extends App
     public function editViewAction()
     {
         try {
-            $this->byId('btn-edit')->click();
+            $this->selenium->byId('btn-edit')->click();
         } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
             echo 'Unavailable view edit';
         }
@@ -157,10 +172,10 @@ class Douceur extends App
     public function editAction()
     {
         try {
-            $this->byName('name')->value($this->config[self::SELENIUM_KEY_VALID_FORM_EDIT]['name']);
-            $this->byName('file')->value($this->config[self::SELENIUM_KEY_VALID_FORM_EDIT]['media_path']);
+            $this->selenium->byName('name')->value($this->config[self::SELENIUM_KEY_VALID_FORM_EDIT]['name']);
+            $this->selenium->byName('file')->value($this->config[self::SELENIUM_KEY_VALID_FORM_EDIT]['media_path']);
             /** Trigger submit on form */
-            $this->byId('douceur-form-edit')->submit();
+            $this->selenium->byId('douceur-form-edit')->submit();
         } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
             echo ('Trigger submit on edit form has failed');
         }
@@ -177,7 +192,7 @@ class Douceur extends App
     public function deleteAction()
     {
         try {
-            $this->byId('btn-delete')->click();
+            $this->selenium->byId('btn-delete')->click();
         } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
             echo ('Trigger click on delete button has failed');
         }
@@ -191,14 +206,14 @@ class Douceur extends App
      * @return int|bool
      * @throws PHPUnit_Extensions_Selenium2TestCase_Exception
      */
-    protected function countDouceursItems()
+    public function countDouceursItems()
     {
         /** @var null $items */
         $items = null;
         try {
-            $this->url($this->getRootUrl());
+            $this->selenium->url(AppPageObject::getRootUrl());
             /** @var array $items */
-            $items = $this->elements($this->using('css selector')->value('*[class="douceur-item"]'));
+            $items = $this->selenium->elements($this->selenium->using('css selector')->value('*[class="douceur-item"]'));
             if (!isset($items) || !is_array($items)) {
                 return 0;
             }
@@ -215,13 +230,13 @@ class Douceur extends App
      * @return bool
      * @throws PHPUnit_Extensions_Selenium2TestCase_Exception
      */
-    protected function getRandomIdentifierFromSweetItems()
+    public function getRandomIdentifierFromSweetItems()
     {
         /** @var null $identifier */
         $identifier = null;
         try {
             /** @var array $items */
-            $items = $this->elements($this->using('css selector')->value('*[class="douceur-item"]'));
+            $items = $this->selenium->elements($this->selenium->using('css selector')->value('*[class="douceur-item"]'));
             if (!isset($items) || !is_array($items) || sizeof($items) < 1) {
                 return false;
             }
