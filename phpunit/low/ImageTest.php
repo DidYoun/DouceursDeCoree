@@ -13,7 +13,6 @@ require_once __DIR__  . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'AppP
 
 class ImageTest extends AppPageObject
 {
-
     /**
      * Create new douceur with thumbnail and check if we have picture attach to it
      *
