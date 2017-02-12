@@ -3,4 +3,3 @@ composer.lock
 /.idea
 /java
 /public/assets/medias/upload/
-/config/database.php
