@@ -17,6 +17,13 @@
         processIsolation="false"
         stopOnFailure="false">
     <testsuites>
+        <testsuite name="all">
+            <directory suffix="Test.php">./phpunit/prioritized</directory>
+            <directory suffix="Test.php">./phpunit/medium</directory>
+            <directory suffix="Test.php">./phpunit/low</directory>
+        </testsuite>
+    </testsuites>
+    <testsuites>
         <testsuite name="prioritized">
             <directory suffix="Test.php">./phpunit/prioritized</directory>
         </testsuite>
@@ -31,4 +38,7 @@
             <directory suffix="Test.php">./phpunit/low</directory>
         </testsuite>
     </testsuites>
+    <logging>
+        <log type="testdox-html" target="./tmp/logs/phpunit/testdox.html"/>
+    </logging>
 </phpunit>
