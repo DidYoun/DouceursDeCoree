@@ -13,14 +13,21 @@ require_once __DIR__ . DIRECTORY_SEPARATOR .'..' . DIRECTORY_SEPARATOR . 'vendor
 require_once 'Douceur.php';
 require_once 'Band.php';
 require_once 'Flash.php';
+require_once 'Image.php';
 
 class AppPageObject extends PHPUnit_Extensions_Selenium2TestCase
 {
-    /** @var string ROOT_URL*/
+    /**
+     * @var string ROOT_URL
+     */
     const ROOT_URL = "/";
-    /** @var string DEFAULT_PATTERN_TITLE */
+    /**
+     * @var string DEFAULT_PATTERN_TITLE
+     */
     const DEFAULT_PATTERN_TITLE = "Douceurs de Corée | ";
-    /** @var string DEFAULT_TITLE_NOT_FOUND */
+    /**
+     * @var string DEFAULT_TITLE_NOT_FOUND
+     */
     const DEFAULT_TITLE_NOT_FOUND = "Page Not Found";
     /** @var Douceur $douceur */
     protected $douceur;
@@ -28,6 +35,8 @@ class AppPageObject extends PHPUnit_Extensions_Selenium2TestCase
     protected $band;
     /** @var Flash $flash */
     protected $flash;
+    /** @var Image $image */
+    protected $image;
 
     /**
      * Launch this method before each method test
@@ -45,6 +54,9 @@ class AppPageObject extends PHPUnit_Extensions_Selenium2TestCase
         }
         if (!isset($this->flash)) {
             $this->flash = new Flash($this);
+        }
+        if (!isset($this->image)) {
+            $this->image = new Image($this);
         }
     }
 

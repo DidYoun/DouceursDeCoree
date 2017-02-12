@@ -15,6 +15,7 @@ class AppTest extends AppPageObject
 {
     /**
      * Check 404
+     *
      * @coversNothing
      */
     public function test404()
@@ -25,6 +26,7 @@ class AppTest extends AppPageObject
 
     /**
      * User story n°1 : Sébastien visite les douceurs de Corée.
+     *
      * @coversNothing
      */
     public function testSebastienVisitLesDouceursDeCoree()
