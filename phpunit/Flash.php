@@ -12,10 +12,6 @@
 
 class Flash
 {
-    /** @var array $config */
-    public $config;
-    /** @var PHPUnit_Extensions_Selenium2TestCase $selenium */
-    protected $selenium;
     /**
      * @var string FLASH_STATE_SUCCESS
      */
@@ -28,6 +24,10 @@ class Flash
      * @var string FLASH_STATE_ERROR
      */
     const FLASH_STATE_ERROR = "alert-error";
+    /** @var array $config */
+    public $config;
+    /** @var PHPUnit_Extensions_Selenium2TestCase $selenium */
+    protected $selenium;
 
     /**
      * Flash constructor.

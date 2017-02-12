@@ -15,6 +15,7 @@ class FlashTest extends AppPageObject
 {
     /**
      * Check if we got flash message after douceur create action
+     *
      * @covers \Douceur::createViewAction()
      * @covers \Douceur::createAction()
      * @covers \Flash::getFlashMessage(Flash::FLASH_STATE_SUCCESS)
@@ -31,6 +32,7 @@ class FlashTest extends AppPageObject
 
     /**
      * Check if we got flash message after douceur edit action
+     *
      * @covers \Douceur::view()
      * @covers \Douceur::editViewAction()
      * @covers \Douceur::editAction()
@@ -56,6 +58,7 @@ class FlashTest extends AppPageObject
 
     /**
      * Check if we got flash message after douceur create action
+     *
      * @covers \Douceur::view()
      * @covers \Douceur::deleteAction()
      * @covers \Flash::getFlashMessage(Flash::FLASH_STATE_SUCCESS)

@@ -11,10 +11,6 @@
  */
 class Douceur
 {
-    /** @var array $config */
-    public $config;
-    /** @var PHPUnit_Extensions_Selenium2TestCase $selenium */
-    protected $selenium;
     /**
      * @var string SELENIUM_KEY_VALID_FORM_CREATE
      */
@@ -43,6 +39,14 @@ class Douceur
      * @var string PATH_DOUCEUR_DELETE
      */
     const PATH_DOUCEUR_DELETE = "douceur/delete/";
+    /**
+     * @var string DOUCEUR_ITEM_CLASS
+     */
+    const DOUCEUR_ITEM_CLASS = "douceur-item";
+    /** @var array $config */
+    public $config;
+    /** @var PHPUnit_Extensions_Selenium2TestCase $selenium */
+    protected $selenium;
 
     /**
      * Douceur constructor.
@@ -71,11 +75,13 @@ class Douceur
             $sweetId = $this->getRandomIdentifierFromSweetItems();
             /** Render view page of sweet */
             $this->selenium->byId('douceur_' . $sweetId)->click();
+
+            return $sweetId;
         } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
             echo('Unavailable douceur view');
         }
 
-        return $sweetId;
+        return false;
     }
 
     /**
@@ -97,7 +103,7 @@ class Douceur
             echo('Unavailable view create');
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -116,11 +122,13 @@ class Douceur
             $this->selenium->byName('description')->value($this->config[self::SELENIUM_KEY_VALID_FORM_CREATE]['description']);
             $this->selenium->byName('file')->value($this->config[self::SELENIUM_KEY_VALID_FORM_CREATE]['media_path']);
             $this->selenium->byId('douceur-form-create')->submit();
+
+            return true;
         } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
             echo ('Trigger POST on form failed');
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -139,11 +147,13 @@ class Douceur
             $this->selenium->byName('description')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['description']);
             $this->selenium->byName('file')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['media_path']);
             $this->selenium->byId('douceur-form-create')->submit();
+
+            return true;
         } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
             echo 'Trigger POST on form failed';
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -156,17 +166,19 @@ class Douceur
     {
         try {
             /** Inject data in form and submit */
-            $this->selenium->byName('name')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['name']);
-            $this->selenium->byName('lastname')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['lastname']);
-            $this->selenium->byName('age')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['age']);
-            $this->selenium->byName('description')->value($this->config[self::SELENIUM_KEY_FAILED_FORM_CREATE]['description']);
+            $this->selenium->byName('name')->value($this->config[self::SELENIUM_KEY_VALID_FORM_CREATE]['name']);
+            $this->selenium->byName('lastname')->value($this->config[self::SELENIUM_KEY_VALID_FORM_CREATE]['lastname']);
+            $this->selenium->byName('age')->value($this->config[self::SELENIUM_KEY_VALID_FORM_CREATE]['age']);
+            $this->selenium->byName('description')->value($this->config[self::SELENIUM_KEY_VALID_FORM_CREATE]['description']);
             $this->selenium->byName('file')->value(null);
             $this->selenium->byId('douceur-form-create')->submit();
+
+            return true;
         } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
             echo 'Trigger POST on form failed';
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -179,11 +191,12 @@ class Douceur
     {
         try {
             $this->selenium->byId('btn-edit')->click();
+            return true;
         } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
             echo 'Unavailable view edit';
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -199,11 +212,13 @@ class Douceur
             $this->selenium->byName('file')->value($this->config[self::SELENIUM_KEY_VALID_FORM_EDIT]['media_path']);
             /** Trigger submit on form */
             $this->selenium->byId('douceur-form-edit')->submit();
+
+            return true;
         } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
             echo ('Trigger submit on edit form has failed');
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -216,11 +231,12 @@ class Douceur
     {
         try {
             $this->selenium->byId('btn-delete')->click();
+            return true;
         } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
             echo ('Trigger click on delete button has failed');
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -240,11 +256,12 @@ class Douceur
             if (!isset($items) || !is_array($items)) {
                 return 0;
             }
+            return sizeof($items);
         } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
             echo ('Can not count the current douceurs on page');
         }
 
-        return sizeof($items);
+        return false;
     }
 
     /**

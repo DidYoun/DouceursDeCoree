@@ -14,6 +14,8 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'AppPa
 class DouceurTest extends AppPageObject
 {
     /**
+     * Render the view page of one sweet item
+     *
      * @covers \Douceur::view()
      */
     public function testSebastienVisitUneDouceurDeCoree()
@@ -26,6 +28,7 @@ class DouceurTest extends AppPageObject
 
     /**
      * User story n°3 : Sébastien crée une nouvelle douceur de Corée.
+     *
      * @covers \Douceur::countDouceursItems()
      * @covers \Douceur::createViewAction()
      * @covers \Douceur::createAction()
@@ -44,6 +47,7 @@ class DouceurTest extends AppPageObject
 
     /**
      * User story n°3-1 : Sébastien crée une nouvelle douceur de Corée avec de mauvaises données
+     *
      * @covers \Douceur::createViewAction()
      * @covers \Douceur::createActionFail()
      */
@@ -61,6 +65,7 @@ class DouceurTest extends AppPageObject
 
     /**
      * User story n°4 : Sébastien met à jour une douceur de Corée.
+     *
      * @covers \Douceur::view()
      * @covers \Douceur::editViewAction()
      * @covers \Douceur::editAction()
@@ -88,6 +93,7 @@ class DouceurTest extends AppPageObject
 
     /**
      * User story n°5 : Sébastien supprime une douceur de Corée.
+     *
      * @covers \Douceur::countDouceursItems()
      * @covers \Douceur::view()
      * @covers \Douceur::deleteAction()
