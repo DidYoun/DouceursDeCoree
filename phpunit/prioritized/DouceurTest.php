@@ -27,7 +27,7 @@ class DouceurTest extends AppPageObject
     }
 
     /**
-     * User story n°3 : Sébastien crée une nouvelle douceur de Corée.
+     * Sébastien crée une nouvelle douceur de Corée.
      *
      * @covers \Douceur::countDouceursItems()
      * @covers \Douceur::createViewAction()
@@ -46,7 +46,7 @@ class DouceurTest extends AppPageObject
     }
 
     /**
-     * User story n°3-1 : Sébastien crée une nouvelle douceur de Corée avec de mauvaises données
+     * Sébastien crée une nouvelle douceur de Corée avec de mauvaises données
      *
      * @covers \Douceur::createViewAction()
      * @covers \Douceur::createActionFail()
@@ -64,7 +64,7 @@ class DouceurTest extends AppPageObject
     }
 
     /**
-     * User story n°4 : Sébastien met à jour une douceur de Corée.
+     * Sébastien met à jour une douceur de Corée.
      *
      * @covers \Douceur::view()
      * @covers \Douceur::editViewAction()
@@ -92,7 +92,7 @@ class DouceurTest extends AppPageObject
     }
 
     /**
-     * User story n°5 : Sébastien supprime une douceur de Corée.
+     * Sébastien supprime une douceur de Corée.
      *
      * @covers \Douceur::countDouceursItems()
      * @covers \Douceur::view()

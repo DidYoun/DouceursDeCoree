@@ -25,7 +25,7 @@ class AppTest extends AppPageObject
     }
 
     /**
-     * User story n°1 : Sébastien visite les douceurs de Corée.
+     * Sébastien visite les douceurs de Corée.
      *
      * @coversNothing
      */
