@@ -90,8 +90,13 @@ const band = (function () {
         let name = document.getElementById('name');
         let date = document.getElementById('date');
         let agency = document.getElementById('agency');
-        let imgFile = document.getElementById('cover-link').files[0];
+        let imgFile = document.getElementById('fileInput');
         let desc = document.getElementById('group');
+
+        if (imgFile.value)
+            imgFile = imgFile.files[0];
+        else
+            imgFile = imgFile.value;
 
         let fd = new FormData();
 
@@ -126,6 +131,7 @@ const band = (function () {
                     window.location.href = '/band';
             })
             .catch(err => {
+                console.log(err);
                 return Promise.reject('err');
             });
     }
@@ -176,10 +182,6 @@ const band = (function () {
         for (let douceur of douceurs) {
             douceursUpdate.delete.push(douceur.id);
         }
-
-
-
-        console.log(douceursUpdate);
 
         return new Promise((resolve, reject) => {
 
