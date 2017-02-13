@@ -22,6 +22,18 @@ class BandTest extends AppPageObject
         $this->assertEquals($this->band->selectRandomDouceur(), true);
 
         // create a group based on params 
-        $this->assertEquals($this->band->actionCreateSweetBand(), true);
+        $this->assertEquals($this->band->actionCreateSweetBand('SELENIUM_KEY_BAND_FORM_CREATE'), true);
+    }
+
+    public function testUserCreateBadGrupDouceur(){
+        $this->url($this->getRootUrl());
+        // go to an other page 
+        $this->assertEquals($this->band->createBand(), true);
+
+        // select a douceur 
+        $this->assertEquals($this->band->selectRandomDouceur(), true);
+
+        // create a group based on params 
+        $this->assertEquals($this->band->actionCreateSweetBand('SELENIUM_KEY_BAND_FORM_CREATE_INVALID'), false);
     }
 }

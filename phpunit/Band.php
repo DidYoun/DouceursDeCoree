@@ -108,32 +108,44 @@ class Band
         }
     }
 
+    public function actionViewBand(){
+        try {
+
+        } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e){
+
+        }
+    }
+
     /**
      *  Action Create Sweet Band 
      *  
      *  @var string $actions
      *  @return boolean
      */
-    public function actionCreateSweetBand(){
+    public function actionCreateSweetBand($param){
+
+        if ($param == "SELENIUM_KEY_BAND_FORM_CREATE")
+            $conf = self::SELENIUM_KEY_BAND_FORM_CREATE;
+        else 
+            $conf = self::SELENIUM_KEY_BAND_FORM_CREATE_INVALID;
+        
         // set the data of the form
         // NAME of the band 
-        $this->selenium->byId('name')->value($this->config[self::SELENIUM_KEY_BAND_FORM_CREATE]['name']);
+        $this->selenium->byId('name')->value($this->config[$conf]['name']);
 
         // DATE of the creation of the band 
-        $this->selenium->byId('date')->value($this->config[self::SELENIUM_KEY_BAND_FORM_CREATE]['date']);
+        $this->selenium->byId('date')->value($this->config[$conf]['date']);
 
         // AGENCY of the band 
-        $this->selenium->byId('agency')->value($this->config[self::SELENIUM_KEY_BAND_FORM_CREATE]['agency']);
+        $this->selenium->byId('agency')->value($this->config[$conf]['agency']);
         
         // Description of the band 
-        $this->selenium->byId('group')->value($this->config[self::SELENIUM_KEY_BAND_FORM_CREATE]['description']);
-
-        
+        $this->selenium->byId('group')->value($this->config[$conf]['description']);
 
         // Cover of the band 
         $fileInput = $this->selenium->byId('fileInput');
         $fileInput->click();
-        $fileInput->value($this->config[self::SELENIUM_KEY_BAND_FORM_CREATE]['media_path']);
+        $fileInput->value($this->config[$conf]['media_path']);
 
 
         $createBtn = $this->selenium->byId('create-group');
@@ -141,10 +153,8 @@ class Band
 
         // @TODO pass a string to represent the ACTION to use 
         // wait for a max time of 5sec 
-        sleep(10);
+        sleep(5);
 
-        var_dump($this->selenium->getBrowserUrl() . self::PATH_BAND_VIEW);
-        var_dump($this->selenium->url());
         if ($this->selenium->getBrowserUrl() . self::PATH_BAND_VIEW == $this->selenium->url())
             return true;
 
