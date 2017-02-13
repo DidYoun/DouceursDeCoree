@@ -44,7 +44,12 @@ const helper = {
                 reject('the file is not present');
 
             if (!file.type.match('image.*'))
+             // .. lets say its the value
+              if (typeof file !== 'string')
                 reject('the file is not an image');
+              else {
+                resolve(true);
+              }
             
             let reader  = new FileReader();
 

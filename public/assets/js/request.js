@@ -24,7 +24,6 @@ class RequestBackend{
         const headers = new Headers();
         // Precise that we want a JSON back to the front
         if (this.type === 'json'){
-            console.log('json bitches');
             headers.append('Content-type', 'application/json');
         }
         
@@ -44,7 +43,6 @@ class RequestBackend{
             config.body = this.params;
         }
             
-        console.log('http://www.douceurs-coree.dev' + this.req);
         // Prepare the request
         this.makeRequest = new Request('http://www.douceurs-coree.dev' + this.req, config);
 

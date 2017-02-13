@@ -55,7 +55,7 @@ body {
 
 
 .home-action a {
-	width: 50%;
+	width: 49%;
 }
 
 
@@ -266,4 +266,108 @@ body {
 
 .full-width{
 	width: 100%;
+}
+
+.input-group{
+	margin-bottom: 20px;
+}
+
+.input-group img{
+	width: 100%;
+	height: auto;
+}
+
+.flex{
+	display: flex;
+}
+
+.block{
+	display: block;
+}
+
+.new-photo{
+	position: relative;
+	align-items: stretch;
+	background-color: #D4D4D4;
+}
+
+.sim-input{
+	width: 100%;
+	display: block;
+	height: 40px;
+	text-align: center;
+	color: white;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+}
+
+#file{
+	position: absolute;
+	bottom: 0;
+	width: 90%;
+	height: 40px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	z-index: 12;
+	opacity: 0;
+}
+
+.sim-input p{
+	padding-top: 8px;
+}
+
+.space{
+	margin-top: 20px;
+}
+
+.thumbnail{
+	height: 350px;
+	overflow: hidden;
+	position: relative;
+}
+
+.thumbnail .caption{
+	position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+}
+
+.thumbnail img{
+	width: 220px;
+}
+
+.has-error{
+	border-color: red;
+}
+
+#container{
+	margin-top: 25px;
+}
+
+.create-container span{
+	width: 142px;
+}
+
+.create-container .input-group{
+	width: 100%;
+}
+
+.create-container h2{
+	margin-bottom: 20px;
+}
+
+i.fa.fa-plus-circle{
+	font-size: 5em;
+	position: relative;
+	top: 100px;
+	left: 75px;
 }
