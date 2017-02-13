@@ -1,5 +1,9 @@
 # Continuons Integration with : Les Douceurs de Corée :two_women_holding_hands:
 [![Build Status](http://d7767b8b.ngrok.io/buildStatus/icon?job=SeleniumDouceursCoree)](http://d7767b8b.ngrok.io/job/SeleniumDouceursCoree/)
+[![Code Climate](https://codeclimate.com/github/DidYoun/DouceursDeCoree/badges/gpa.svg)](https://codeclimate.com/github/DidYoun/DouceursDeCoree)
+[![Issue Count](https://codeclimate.com/github/DidYoun/DouceursDeCoree/badges/issue_count.svg)](https://codeclimate.com/github/DidYoun/DouceursDeCoree)
+[![Test Coverage](https://codeclimate.com/github/DidYoun/DouceursDeCoree/badges/coverage.svg)](https://codeclimate.com/github/DidYoun/DouceursDeCoree/coverage)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Introduction**
 > The tests have been implemented with : 
