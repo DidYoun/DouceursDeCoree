@@ -365,9 +365,11 @@ body {
 	margin-bottom: 20px;
 }
 
-i.fa.fa-plus-circle{
+#add{
 	font-size: 5em;
 	position: relative;
 	top: 100px;
 	left: 75px;
+	background-color: transparent;
+	border-color: transparent;
 }

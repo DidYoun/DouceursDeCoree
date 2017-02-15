@@ -10,8 +10,6 @@
  * @link                https://github.com/DidYoun/DouceursDeCoree/
  */
 
-use PHPUnit_Extensions_Selenium2TestCase_Keys;
-
 class Band
 {
     /** @var array $config */
@@ -78,20 +76,6 @@ class Band
     }
 
     /**
-     *  View Band 
-     *     
-     *  @return int 
-     *  @throws 
-     */
-    public function viewBand(){
-        try {
-
-        } catch(PHPUnit_Extensions_Selenium2TestCase_Exception $e){
-
-        }
-    }
-
-    /**
      *  Create Band 
      *      Create band view
      */
@@ -105,14 +89,6 @@ class Band
         } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e){
             echo ('Band create view is unavailable');
             return false;
-        }
-    }
-
-    public function actionViewBand(){
-        try {
-
-        } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e){
-
         }
     }
 
@@ -131,7 +107,8 @@ class Band
         
         // set the data of the form
         // NAME of the band 
-        $this->selenium->byId('name')->value($this->config[$conf]['name']);
+        var_dump(str_shuffle($this->config[$conf]['name']));
+        $this->selenium->byId('name')->value(uniqid($this->config[$conf]['name']));
 
         // DATE of the creation of the band 
         $this->selenium->byId('date')->value($this->config[$conf]['date']);
@@ -162,32 +139,90 @@ class Band
     }
 
     /**
-     *  Select sweet band 
+     *  Add Douceur Existing Band 
      */
-    protected function selectSweetBand(){
-    
-        try{
-            $items = $this->selenium->elements($this->selenium->using('css selector')->value('*[class="band-item"]'));
+    public function addDouceurExistingBand(){
+        $modalButton = $this->selenium->byId('add');
+        $modalButton->click();
 
+        // wait for the modal to load 
+        sleep(3);
+        // add a random douceur
+        $this->selectRandomDouceur();
+
+        
+        $this->selenium->waitUntil(function(){
+            $closeModal = $this->selenium->byId('close-modal');
+            
+            if (isset($closeModal)){
+                $closeModal->click();
+                // confirm the selection by updating the band 
+                if ($this->selenium->getBrowserUrl() . self::PATH_BAND_VIEW == $this->selenium->url())
+                    return true;
+
+                return false;
+            }
+                    
+        }, 1000);
+
+        $updateBtn = $this->selenium->byId('update');
+        $updateBtn->click();
+
+        // wait for the page to load... 
+        sleep(5);
+    }
+
+    /**
+     *  View Random Band 
+     *      Select a random band and see it 
+     */
+    public function viewRandomBand(){
+        try {
+            $this->selenium->url(AppPageObject::getRootUrl());
+             // viewt the band 
+            $id = $this->selectSweetBand('btn btn-primary btn-info');
+            // Sleep the process 5 sec then check the url 
+            sleep(5);
+
+            if ($this->selenium->getBrowserUrl() . self::PATH_BAND_EDIT . $id == $this->selenium->url())
+                return true;
+
+            return false;
+        } catch(PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     *  Select sweet band 
+     *      View a random Band 
+     */
+    protected function selectSweetBand($selectorID = ''){
+
+        try{
+            $items = $this->selenium->elements($this->selenium->using('css selector')->value('*[class="btn btn-primary btn-info"]'));
+
+    
             if (!isset($items) || !is_array($items)) {
                 return false;
             }
 
             // Take a random key from the list 
             $randomKey = array_rand($items, 1);
-            $itemID = $items[$randomKey]->attribute('id');
+            $groupID = $items[$randomKey]->attribute('data-id');
+            $items[$randomKey]->click();
+
+            var_dump('id de nul '.$groupID);
+
+            if(isset($groupID))
+                return $groupID;
+            
+            return false;
 
             // check if the id is in the right format 
-            preg_match_all('/_(\d*)$/', $itemID, $matches);
-            if (!isset($matches) || !isset($matches[1]) || !isset($matches[1][0])) {
-                    return false;
-            }
-            $identifier = $matches[1][0];
         } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e){
             echo ("Can not retrieve a random band");
         }
-
-        return $identifier;
     }
 
     /**

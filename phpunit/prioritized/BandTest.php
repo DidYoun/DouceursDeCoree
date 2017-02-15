@@ -13,6 +13,9 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'AppPa
 
 class BandTest extends AppPageObject
 {
+    /**
+     *  Test User Create Group Douceur 
+     */
     public function testUserCreateGroupDouceur(){
         $this->url($this->getRootUrl());        
         // go to an other page 
@@ -25,7 +28,20 @@ class BandTest extends AppPageObject
         $this->assertEquals($this->band->actionCreateSweetBand('SELENIUM_KEY_BAND_FORM_CREATE'), true);
     }
 
-    public function testUserCreateBadGrupDouceur(){
+    /**
+     *  Test User Admire Douceur 
+     */
+    public function testUserAdmireDouceur(){
+        $this->url($this->getRootUrl());
+
+        // User see a random band 
+        $this->assertEquals($this->band->viewRandomBand(), true);
+    }
+
+    /**
+     *  Test User Create Bad Group Douceur 
+     */
+    public function testUserCreateBadGroupDouceur(){
         $this->url($this->getRootUrl());
         // go to an other page 
         $this->assertEquals($this->band->createBand(), true);
@@ -36,4 +52,16 @@ class BandTest extends AppPageObject
         // create a group based on params 
         $this->assertEquals($this->band->actionCreateSweetBand('SELENIUM_KEY_BAND_FORM_CREATE_INVALID'), false);
     }
+
+    /**
+     *  Test User Add Douceur Band 
+     */
+     public function testUserAddDouceurToBand(){
+        $this->url($this->getRootUrl());
+        // select a random douceur 
+        $this->assertEquals($this->band->viewRandomBand(), true);
+        // add a random douceur to a band 
+        $this->assertEquals($this->band->addDouceurExistingBand(), true);
+     }
+
 }
