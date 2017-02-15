@@ -29,6 +29,10 @@ class AppPageObject extends PHPUnit_Extensions_Selenium2TestCase
      * @var string DEFAULT_TITLE_NOT_FOUND
      */
     const DEFAULT_TITLE_NOT_FOUND = "Page Not Found";
+    /**
+     * @var string PATTERN_EXTRACT_ID_FROM_ID
+     */
+    const PATTERN_EXTRACT_ID_FROM_ID = '/[_|-](?<id>[0-9]+)$/i';
     /** @var Douceur $douceur */
     protected $douceur;
     /** @var Band $band */

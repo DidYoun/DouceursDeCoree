@@ -373,3 +373,9 @@ body {
 	background-color: transparent;
 	border-color: transparent;
 }
+
+.band-item > img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
