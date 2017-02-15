@@ -107,7 +107,6 @@ class Band
         
         // set the data of the form
         // NAME of the band 
-        var_dump(str_shuffle($this->config[$conf]['name']));
         $this->selenium->byId('name')->value(uniqid($this->config[$conf]['name']));
 
         // DATE of the creation of the band 
@@ -151,12 +150,17 @@ class Band
         $this->selectRandomDouceur();
 
         
-        $this->selenium->waitUntil(function(){
+        $process = $this->selenium->waitUntil(function(){
             $closeModal = $this->selenium->byId('close-modal');
             
             if (isset($closeModal)){
                 $closeModal->click();
-                // confirm the selection by updating the band 
+
+                sleep(5);
+                $updateBtn = $this->selenium->byId('update');
+                $updateBtn->click();
+                sleep(5);
+                // confirm the selection by updating the band
                 if ($this->selenium->getBrowserUrl() . self::PATH_BAND_VIEW == $this->selenium->url())
                     return true;
 
@@ -165,11 +169,8 @@ class Band
                     
         }, 1000);
 
-        $updateBtn = $this->selenium->byId('update');
-        $updateBtn->click();
-
+        return $process;
         // wait for the page to load... 
-        sleep(5);
     }
 
     /**
@@ -211,8 +212,6 @@ class Band
             $randomKey = array_rand($items, 1);
             $groupID = $items[$randomKey]->attribute('data-id');
             $items[$randomKey]->click();
-
-            var_dump('id de nul '.$groupID);
 
             if(isset($groupID))
                 return $groupID;
