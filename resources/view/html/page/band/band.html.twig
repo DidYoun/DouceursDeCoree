@@ -11,7 +11,7 @@
     </div>
     {% for band in band.getAllBands() %}
     <div class="col-lg-3 col-sm-4 col-md-4 col-xs-4">
-        <div class="thumbnail" id="band-{{ band.id }}">
+        <div class="thumbnail band-item" id="band-{{ band.id }}">
             <img src="{{ band.cover }}" alt="...">
             <div class="caption">
                 <h3>{{ band.name }}</h3>

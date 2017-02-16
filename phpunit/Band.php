@@ -16,48 +16,42 @@ class Band
     public $config;
     /** @var PHPUnit_Extensions_Selenium2TestCase $selenium */
     protected $selenium;
-
-    // Define the data that will use selenium to create a BAND 
+    /**
+     * @var string MAX_TIME_BEFORE_TIMEOUT
+     */
+    const MAX_TIME_BEFORE_TIMEOUT = 3000;
     /**
      *  @var string SELENIUM_KEY_BAND_FORM_CREATE
      */
     const SELENIUM_KEY_BAND_FORM_CREATE = "SELENIUM_KEY_BAND_FORM_CREATE";
-
     /**
      *  @var string SELENIUM_KEY_BAND_FORM_CREATE_INVALID
      */
     const SELENIUM_KEY_BAND_FORM_CREATE_INVALID = "SELENIUM_KEY_BAND_FORM_CREATE_INVALID";
-
     /**
-     *  @var string 
-     */ 
+     *  @var string
+     */
     const SELENIUM_KEY_BAND_FORM_EDIT = "SELENIUM_KEY_BAND_FORM_EDIT";
-
     /**
      *  @var string PATH_BAND_VIEW
      */
     const PATH_BAND_VIEW = "band";
-
-    /** 
+    /**
      * @var string PATH_BAND_CREATE
      */
     const PATH_BAND_CREATE = "band/new/";
-
     /**
      * @var string PATH_BAND_EDIT
      */
     const PATH_BAND_EDIT = "band/";
-
     /**
-     *  @var string PATH_BAND_DELETE 
+     *  @var string PATH_BAND_DELETE
      */
     const PATH_BAND_DELETE = "band/";
-
     /**
      *  @var string PATH_REMOVE_ALL
      */
-    const PATH_BAND_REMOVEALL = "band/removeAll";
-
+    const PATH_BAND_REMOVE_ALL = "band/removeAll";
     /**
      *  @var string PATH_BAND_UPDATE
      */
@@ -76,7 +70,100 @@ class Band
     }
 
     /**
-     *  Create Band 
+     * Render the view of all bands
+     *
+     * @return bool
+     */
+    public function view()
+    {
+        try {
+            $this->selenium->url($this->selenium->getBrowserUrl() . self::PATH_BAND_VIEW);
+            return true;
+        } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
+            echo 'Cant retrieve the bands view';
+        }
+        return false;
+    }
+
+    /**
+     * Delete action on band view
+     *
+     * @return bool
+     */
+    public function delete()
+    {
+        try {
+            $button = $this->selenium->byId('removeGroup');
+            $button->click();
+
+            return true;
+        } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
+            echo 'Cant process the delete of the band item';
+        }
+
+        return false;
+    }
+
+    /**
+     *  Action create sweet Band
+     *
+     *  @var bool $isValid
+     *  @return boolean
+     */
+    public function createAction($isValid)
+    {
+        try {
+            /** @var string $conf */
+            $conf = self::SELENIUM_KEY_BAND_FORM_CREATE;
+            if (!$isValid) {
+                $conf = self::SELENIUM_KEY_BAND_FORM_CREATE_INVALID;
+            }
+            // NAME of the band
+            $this->selenium->byId('name')->value(substr(uniqid($this->config[$conf]['name']), 6));
+            // DATE of the creation of the band
+            $this->selenium->byId('date')->value($this->config[$conf]['date']);
+            // AGENCY of the band
+            $this->selenium->byId('agency')->value($this->config[$conf]['agency']);
+            // Description of the band
+            $this->selenium->byId('group')->value($this->config[$conf]['description']);
+            // Cover of the band
+            $this->selenium->byName('file')->value($this->config[$conf]['media_path']);
+
+            $createBtn = $this->selenium->byId('create-group');
+            $createBtn->click();
+
+            return true;
+        } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
+            echo 'Cant create new band';
+        }
+
+        return false;
+    }
+
+    /**
+     * Render the view page of one band
+     *
+     * @return bool|int
+     */
+    public function renderBandItemView()
+    {
+        try {
+            $itemId = $this->_getRandomBandItemFromGrid();
+            $bandLink = $this->selenium->element($this->selenium->using('css selector')->value('#band-' . $itemId .' .caption a'));
+            if (!isset($bandLink)) {
+                return false;
+            }
+            $bandLink->click();
+            return $itemId;
+        } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
+            echo 'cant load the band view';
+        }
+
+        return false;
+    }
+
+    /**
+     *  Create Band
      *      Create band view
      */
     public function createBand(){
@@ -90,51 +177,6 @@ class Band
             echo ('Band create view is unavailable');
             return false;
         }
-    }
-
-    /**
-     *  Action Create Sweet Band 
-     *  
-     *  @var string $actions
-     *  @return boolean
-     */
-    public function actionCreateSweetBand($param){
-
-        if ($param == "SELENIUM_KEY_BAND_FORM_CREATE")
-            $conf = self::SELENIUM_KEY_BAND_FORM_CREATE;
-        else 
-            $conf = self::SELENIUM_KEY_BAND_FORM_CREATE_INVALID;
-        
-        // set the data of the form
-        // NAME of the band 
-        $this->selenium->byId('name')->value(uniqid($this->config[$conf]['name']));
-
-        // DATE of the creation of the band 
-        $this->selenium->byId('date')->value($this->config[$conf]['date']);
-
-        // AGENCY of the band 
-        $this->selenium->byId('agency')->value($this->config[$conf]['agency']);
-        
-        // Description of the band 
-        $this->selenium->byId('group')->value($this->config[$conf]['description']);
-
-        // Cover of the band 
-        $fileInput = $this->selenium->byId('fileInput');
-        $fileInput->click();
-        $fileInput->value($this->config[$conf]['media_path']);
-
-
-        $createBtn = $this->selenium->byId('create-group');
-        $createBtn->click();
-
-        // @TODO pass a string to represent the ACTION to use 
-        // wait for a max time of 5sec 
-        sleep(5);
-
-        if ($this->selenium->getBrowserUrl() . self::PATH_BAND_VIEW == $this->selenium->url())
-            return true;
-
-        return false;
     }
 
     /**
@@ -155,11 +197,6 @@ class Band
             
             if (isset($closeModal)){
                 $closeModal->click();
-
-                sleep(5);
-                $updateBtn = $this->selenium->byId('update');
-                $updateBtn->click();
-                sleep(5);
                 // confirm the selection by updating the band
                 if ($this->selenium->getBrowserUrl() . self::PATH_BAND_VIEW == $this->selenium->url())
                     return true;
@@ -169,8 +206,11 @@ class Band
                     
         }, 1000);
 
-        return $process;
-        // wait for the page to load... 
+        $updateBtn = $this->selenium->byId('update');
+        $updateBtn->click();
+
+        // wait for the page to load...
+        sleep(5);
     }
 
     /**
@@ -225,27 +265,85 @@ class Band
     }
 
     /**
-     *  Select douceur while creating the band 
+     *  Select douceur while creating the band
      */
     public function selectRandomDouceur(){
-        try{    
-            $this->selenium->waitUntil(function(){
-                $items = $this->selenium->elements($this->selenium->using('css selector')->value('*[class="btn btn-info select"]'));
-            
-                if (!isset($items) && !is_array($items))
-                    return false;
-                
-                $randomKey = array_rand($items, 1);
-                $items[$randomKey]->click();
-
-                return true;
-            }, 8000);
+        try {
+            $items = $this->selenium->elements($this->selenium->using('css selector')->value('*[class="btn btn-info select"]'));
+            if (empty($items)) {
+                throw new PHPUnit_Extensions_Selenium2TestCase_Exception('Any sweety can be add');
+            }
+            $randomKey = array_rand($items, 1);
+            $item = $items[$randomKey];
+            $item->click();
+            return true;
         } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e){
             echo ('Can not retrieve a douceur for creating a band');
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if we have one sweet which are not include in band
+     *
+     * @return bool
+     */
+    public function checkAvailableSweety()
+    {
+        $items = $this->selenium->elements($this->selenium->using('css selector')->value('*[class="btn btn-info select"]'));
+        if (empty($items)) {
             return false;
         }
 
         return true;
     }
 
+    /**
+     * Return the current number of band items
+     *
+     * @return int
+     */
+    public function countCurrentBandItems()
+    {
+        $this->selenium->url($this->selenium->getBrowserUrl() . self::PATH_BAND_VIEW);
+        $items = $this->selenium->elements($this->selenium->using('css selector')->value('*[class="thumbnail band-item"]'));
+        if (empty($items)) {
+            return 0;
+        }
+        return sizeof($items);
+    }
+
+    /**
+     * From the view page [/band] we retrieve one item randomly
+     *
+     * @return bool|int
+     */
+    protected function _getRandomBandItemFromGrid()
+    {
+        try {
+            /** @var array $bands */
+            $bands = $this->selenium->elements($this->selenium->using('css selector')->value('*[class="thumbnail band-item"]'));
+            if (!isset($bands) || !is_array($bands) || !$bands) {
+                return false;
+            }
+            if (sizeof($bands) <= 1) {
+                $band = reset($bands);
+                $itemId = $band->attribute('id');
+            } else {
+                /** @var int $randomKey */
+                $randomKey = array_rand($bands, 1);
+                /** @var string $itemId */
+                $itemId = $bands[$randomKey]->attribute('id');
+            }
+            preg_match(AppPageObject::PATTERN_EXTRACT_ID_FROM_ID, $itemId, $matches);
+            if (!isset($matches) || !isset($matches['id'])) {
+                return false;
+            }
+
+            return $matches['id'];
+        } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
+            echo 'cant retrieve an random band id';
+        }
+    }
 }
