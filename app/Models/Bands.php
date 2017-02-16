@@ -58,11 +58,9 @@ class Bands extends AbstractDb
 
         $res = (bool) $sth->execute();
 
-        $id = $this->connection->lastInsertId();
-
         if(is_bool($res) && $res){
             if(count($params->list) > 0)
-                return $this->setBandToUser($params->list, NULL, $id);
+                return $this->setBandToUser($params->list, $name);
         }
 
         return $res;

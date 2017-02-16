@@ -109,9 +109,6 @@ const band = (function () {
                 listOfDouceur.description = helperFunc.empty(desc.value, 'description', desc);
                 fd.append('datas', JSON.stringify(listOfDouceur));
                 fd.append('file', imgFile);
-
-                if (listOfDouceur.list.length === 0)
-                    return Promise.reject('you must add a douceur');
             })
             .then(createGroupDouceur.bind(null, fd))
             .catch(err => {

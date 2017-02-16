@@ -242,6 +242,7 @@ $app->post('/band/removeAll', function(Request $request, Response $response, $ar
 $app->post('/band/update', function(Request $request, Response $response, $args){
     $bandHelper = new \Helpers\BandsHelper();
     $res = $bandHelper->update($request);
+    //$bandPath = $app->getContainer()->get('router')->pathFor('bandView');
 
     if($res)
         return $response->withJson(array('url' => '/band'));

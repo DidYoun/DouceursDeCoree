@@ -365,17 +365,9 @@ body {
 	margin-bottom: 20px;
 }
 
-#add{
+i.fa.fa-plus-circle{
 	font-size: 5em;
 	position: relative;
 	top: 100px;
 	left: 75px;
-	background-color: transparent;
-	border-color: transparent;
-}
-
-.band-item > img {
-	display: block;
-	width: 100%;
-	height: auto;
 }

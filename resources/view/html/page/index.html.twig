@@ -19,13 +19,13 @@
             </ol>
             {% for band in bands %}
                 <div class="col-lg-3 col-sm-4 col-md-4 col-xs-4">
-                    <div class="band-item" id="band-{{ band.id }}">
+                    <div class="thumbnail">
                         <img src="{{ band.cover }}" alt="...">
                         <div class="caption band-item" id="{{ band.id }}">
                             <h3>{{ band.name }}</h3>
                             <p>
-                                <a href="/band/{{ band.name }}" class="btn btn-primary btn-info" role="button" data-id="{{ band.name }}">See band</a>
-                             </p>
+                                <a href="/band/{{ band.name }}" class="btn btn-primary btn-info" role="button">See band</a>
+                            </p>
                         </div>
                     </div>
                 </div>
