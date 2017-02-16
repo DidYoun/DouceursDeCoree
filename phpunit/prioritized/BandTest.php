@@ -13,4 +13,34 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'AppPa
 
 class BandTest extends AppPageObject
 {
+    /**
+     * Create new band group
+     *
+     * @covers \Band::countCurrentBandItems()
+     * @covers \Band::createBand()
+     * @covers \Band::checkAvailableSweety()
+     * @covers \Band::selectRandomDouceur()
+     * @covers \Band::createAction()
+     * @covers \Band::view()
+     * @covers \Douceur::createViewAction()
+     * @covers \Douceur::createAction()
+     */
+    public function testUserCreateBandWithSweeties()
+    {
+        $this->url($this->getRootUrl());
+        $currentItem = $this->band->countCurrentBandItems();
+        $this->assertNotFalse($currentItem);
+        $this->assertTrue($this->band->createBand());
+        $bandCreateUrl = $this->url();
+        if (!$this->band->checkAvailableSweety()) {
+            $this->assertTrue($this->douceur->createViewAction());
+            $this->assertTrue($this->douceur->createAction());
+            $this->url($bandCreateUrl);
+        }
+        $this->assertTrue($this->band->checkAvailableSweety());
+        $this->assertTrue($this->band->selectRandomDouceur());
+        $this->assertTrue($this->band->createAction(true));
+        $this->assertTrue($this->band->view());
+        $this->assertEquals($this->band->countCurrentBandItems(), $currentItem + 1);
+    }
 }
