@@ -141,6 +141,17 @@ class Band
     }
 
     /**
+     *  False Url 
+     *  @return boolean
+     */
+    public function falseUrl(){
+        if ($this->selenium->getBrowserUrl() . self::PATH_BAND_VIEW  == $this->selenium->url())
+            return true;
+
+        return false;
+    }
+
+    /**
      * Render the view page of one band
      *
      * @return bool|int
@@ -197,6 +208,15 @@ class Band
             
             if (isset($closeModal)){
                 $closeModal->click();
+
+                sleep(5);
+
+                $updateBtn = $this->selenium->byId('update');
+                $updateBtn->click();
+
+                sleep(5);
+
+                // wait for the page to load...
                 // confirm the selection by updating the band
                 if ($this->selenium->getBrowserUrl() . self::PATH_BAND_VIEW == $this->selenium->url())
                     return true;
@@ -206,11 +226,31 @@ class Band
                     
         }, 1000);
 
-        $updateBtn = $this->selenium->byId('update');
-        $updateBtn->click();
+        
 
-        // wait for the page to load...
-        sleep(5);
+        return $process;
+    }
+
+    /**
+     *  Delete Random Douceur From Band 
+     */
+    public function deleteRandomDouceurFromBand(){
+        try {
+            $this->selectRandomDouceur('btn btn-info delete');
+            // update now 
+
+            $updateBtn = $this->selenium->byId('update');
+            $updateBtn->click();
+
+            sleep(5);
+
+            if ($this->selenium->getBrowserUrl() . self::PATH_BAND_VIEW == $this->selenium->url())
+                return true;
+
+            return false;
+        } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e){
+            echo $e;
+        }
     }
 
     /**
@@ -267,9 +307,14 @@ class Band
     /**
      *  Select douceur while creating the band
      */
-    public function selectRandomDouceur(){
+    public function selectRandomDouceur($del = NULL){
         try {
-            $items = $this->selenium->elements($this->selenium->using('css selector')->value('*[class="btn btn-info select"]'));
+            if(is_null($del))
+                $items = $this->selenium->elements($this->selenium->using('css selector')->value('*[class="btn btn-info select"]'));
+            else {
+                $items = $this->selenium->elements($this->selenium->using('css selector')->value('*[class="btn btn-info delete"]'));
+            }
+
             if (empty($items)) {
                 throw new PHPUnit_Extensions_Selenium2TestCase_Exception('Any sweety can be add');
             }
