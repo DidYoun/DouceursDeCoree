@@ -12,10 +12,6 @@
 class Douceur
 {
     /**
-     * @var string PATTERN_EXTRACT_ID_FROM_ID
-     */
-    const PATTERN_EXTRACT_ID_FROM_ID = '/_(?<douceur_id>[0-9]+)$/i';
-    /**
      * @var string SELENIUM_KEY_VALID_FORM_CREATE
      */
     const SELENIUM_KEY_VALID_FORM_CREATE = "SELENIUM_FORM_CREATE_SWEET_VALID_DATA";
@@ -286,12 +282,11 @@ class Douceur
             $randomKey = array_rand($items, 1);
             /** @var string $itemId */
             $itemId = $items[$randomKey]->attribute('id');
-            preg_match(self::PATTERN_EXTRACT_ID_FROM_ID, $itemId, $matches);
-            if (!isset($matches) || !isset($matches['douceur_id'])) {
+            preg_match(AppPageObject::PATTERN_EXTRACT_ID_FROM_ID, $itemId, $matches);
+            if (!isset($matches) || !isset($matches['id'])) {
                 return false;
             }
-
-            return $matches['douceur_id'];
+            return $matches['id'];
         } catch (PHPUnit_Extensions_Selenium2TestCase_Exception $e) {
             echo ('Cant retrieve an random douceur identifier');
         }

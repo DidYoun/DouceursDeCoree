@@ -6,7 +6,7 @@ return [
         'name'          => 'Kim',
         'lastname'      => 'Jei',
         'age'           => 27,
-        'description'   => 'La plue belle <3 !'
+        'description'   => 'La plus belle <3 !'
     ],
     'SELENIUM_FORM_CREATE_SWEET_FAILED_DATA' => [
         'media_path'    => '/media/douceurscoree/hotesse.jpg',
@@ -27,7 +27,7 @@ return [
         'date'       => '12-02-2017',
         'agency'     => 'SM Entertainment',
         'description'=> '피에스타(FIESTAR)는 로엔엔터테인먼트 소속의 대한민국의 5인조 걸그룹이다. 2013년 9월 로엔엔터테인먼트의 레이블 분리로 콜라보따리 레이블 소속으로 활동 하였다.[1] 2015년 9월 22일 콜라보따리 레이블이 로엔트리 레이블로 편입되어 현재 로엔트리 레이블 소속으로 활동 중이다.[2]2012년부터 2014년까지 6인조였다가 2014년 3월 20일부로 멤버 체스카가 탈퇴해 5인조로 재편되었다.',
-        'media_path' => '/media/douceurscoree/hotesse.jpg'
+        'media_path' => '/media/douceurscoree/ohmygirl.jpg'
     ],
     'SELENIUM_KEY_BAND_FORM_CREATE_INVALID' => [
         'name'       => 'Oh my girl',
