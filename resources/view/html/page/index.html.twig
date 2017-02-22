@@ -24,7 +24,7 @@
                         <div class="caption band-item" id="{{ band.id }}">
                             <h3>{{ band.name }}</h3>
                             <p>
-                                <a href="/band/{{ band.name }}" class="btn btn-primary btn-info" role="button" data-id="{{ band.name }}">Voir un groupe</a>
+                                <a href="/band/{{ band.name }}" class="btn btn-primary btn-info" role="button" data-id="{{ band.name }}">See band</a>
                              </p>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
             {% endfor %}
           </div>
         {% else %}
-            <span class="empty-collection">Pas de groupe de douceurs ajoutées !</span>
+            <span class="empty-collection">Pas de groupe de douceurs ajoutées hihi !</span>
         {% endif %}
         {% include "page/content/action.html.twig" %}
     </div>
